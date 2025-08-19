@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GitBudgie — simple, open, community-driven</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <meta name="description" content="GitBudgie is a lightweight, open-source git forge focused on simplicity, self-hosting and community." />
+  <style>
+    :root{
+      --bg: #fafafa;
+      --card: #f0f0f0;
+      --text: #222;
+      --muted:#555;
+      --border:#e1e1e1;
+      --accent:#4caf50;
+      --accent2:#2196f3;
+      --accent3:#ffb300;
+      --link:#0b63b6;
+      --heading:#2c3e50;
+      --radius: 10px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    .top{
+      display:flex; align-items:center; gap:.6rem;
+      padding:.85rem 1rem;
+      border-bottom:1px solid var(--border);
+      background:white;
+      position:sticky; top:0; z-index:10;
+    }
+    .logo{height:28px; width:28px; border-radius:6px}
+    .brand{font-weight:700; color:var(--heading); letter-spacing:.2px}
+    main{max-width:860px; margin:0 auto; padding:32px 20px 60px}
+    h1,h2,h3{color:var(--heading); line-height:1.25; margin:0 0 .4rem}
+    h1{font-size:clamp(28px, 5vw, 36px); margin-top:.4rem}
+    p.lead{color:var(--muted); margin:0 0 1rem}
+    .pill{
+      display:inline-flex; gap:.35rem; align-items:center;
+      padding:.25rem .6rem; border-radius:999px;
+      border:1px solid var(--border); background:#fff; font-size:.9rem; color:var(--muted)
+    }
+    .colors{display:inline-flex; gap:.25rem; margin-left:.35rem; vertical-align:middle}
+    .dot{width:.7rem; height:.7rem; border-radius:50%}
+    .dot.y{background:var(--accent3)}
+    .dot.g{background:var(--accent)}
+    .dot.b{background:var(--accent2)}
+    .section{margin-top:28px; padding-top:6px; border-top:1px solid var(--border)}
+    .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px; margin-top:12px}
+    .card{
+      background:var(--card); border:1px solid var(--border); border-left:6px solid var(--accent);
+      border-radius:var(--radius); padding:16px 16px 14px
+    }
+    .card h3{margin:.1rem 0 .25rem; font-size:1.05rem}
+    .card p{margin:0; color:var(--muted)}
+    pre{
+      background:#fff; border:1px solid var(--border); border-radius:8px;
+      padding:12px; overflow:auto; font-size:.95rem
+    }
+    code{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace}
+    a{color:var(--link); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .notice{
+      display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;
+      background:#fff; border:1px dashed var(--border); border-radius:8px; padding:10px 12px;
+      color:var(--muted)
+    }
+    footer{margin-top:36px; text-align:center; color:var(--muted); font-size:.95rem}
+    .heart{color:#e53935}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <img src="logo.png" alt="GitBudgie logo" class="logo">
+    <span class="brand">GitBudgie</span>
+    <span class="pill">simple • open • community</span>
+  </div>
+
+  <main>
+    <h1>Welcome to GitBudgie</h1>
+    <p class="lead">
+      GitBudgie is a lightweight, open-source git forge focused on the basics: repositories, issues and collaboration.
+      No ads, no dark patterns, no lock-in — just tools that get out of your way.
+      <span class="pill">inspired by budgies
+        <span class="colors">
+          <span class="dot y" title="yellow"></span>
+          <span class="dot g" title="green"></span>
+          <span class="dot b" title="blue"></span>
+        </span>
+      </span>
+    </p>
+
+    <div class="section">
+      <h2>Features</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>🐙 Repos</h3>
+          <p>Create, clone, push, fork. Clean UI, fast browsing, smart diffs and code search — without bloat.</p>
+        </div>
+        <div class="card">
+          <h3>💬 Community</h3>
+          <p>Issues, discussions and notifications. Friendly defaults and transparent governance.</p>
+        </div>
+        <div class="card">
+          <h3>🖥️ Self-host</h3>
+          <p>Drop a single binary on your box, plug your database or SQLite, and you’re running.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Quick start</h2>
+      <p>Download and run:</p>
+      <pre><code>$ curl -L https://leafeni.github.io/gitbudgie/latest.tar.gz | tar xz
+$ ./gitbudgie serve</code></pre>
+      <p class="notice">
+        Tip: ship it with systemd or run it in a small container; GitBudgie is happy on modest hardware.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Contribute</h2>
+      <p>
+        We welcome patches, docs and bug reports. Check out our repo on
+        <a href="https://github.com/leafeni/gitbudgie" target="_blank">GitHub</a> 
+        or start with <code>good first issue</code>. Be kind, respect others, and have fun.
+      </p>
+      <p>
+        Curious why the colors? Meet the real inspiration on the
+        <a href="parrots.html">budgies page</a> 🐦.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>Support</h2>
+      <p>
+        If you like GitBudgie and want to support the project, consider 
+        <a href="https://github.com/sponsors/leafeni" target="_blank">becoming a sponsor on GitHub Sponsors</a>.  
+        Every contribution helps keep this project free and community-driven.
+		 
+      </p>
+    </div>
+
+    <footer>
+      Built with <span class="heart">♥</span> by the community. GitBudgie is Free/Libre Open Source Software.
+    </footer>
+  </main>
+</body>
+</html>
