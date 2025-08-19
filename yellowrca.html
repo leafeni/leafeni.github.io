@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>yellow-rca — open-source RCA signal toolkit</title>
+  <meta name="description" content="yellow‑rca is a tiny open‑source C/C++ library for generating analog‑style RCA (PAL/NTSC) video signals. Clean timing, small API, zero bloat." />
+  <meta property="og:title" content="yellow-rca — open-source RCA signal toolkit" />
+  <meta property="og:description" content="Tiny C/C++ library for analog‑style RCA (PAL/NTSC) video signals. Clean timing, simple primitives." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="color-scheme" content="dark light" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0d1117; --bg2:#0f1722; --card:#0f1b2a; --line:#1f2a3a;
+      --fg:#e6edf3; --muted:#8b949e; --accent:#58a6ff; --good:#7ee787;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; background:var(--bg); color:var(--fg);
+      font-family:"Source Code Pro", monospace;
+      line-height:1.6; text-rendering:optimizeLegibility;
+      background-image:repeating-linear-gradient(to bottom, rgba(255,255,255,.03) 0 1px, transparent 1px 3px);
+      background-attachment: fixed;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{opacity:.9}
+    header{padding:48px 16px 12px; text-align:center}
+    header h1{margin:0 0 8px; font-weight:800; color:var(--accent); font-size:clamp(28px,5.5vw,42px)}
+    header p{margin:0; color:var(--muted)}
+    .wrap{max-width:1200px; margin:0 auto; padding:24px 16px 64px}
+    .hero{display:grid; grid-template-columns:1.1fr .9fr; gap:28px; align-items:center; margin-top:28px}
+    @media (max-width:980px){ .hero{grid-template-columns:1fr} }
+    .text h2{margin:0 0 10px; color:var(--accent); font-size:clamp(20px,3.6vw,28px)}
+    .text p{margin:0 0 10px}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+    .badges img{height:28px}
+    .panel{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px; margin-top:24px}
+    .panel h3{margin:0 0 8px; color:var(--accent)}
+    ul{margin:8px 0 0 18px}
+    .tv{position:relative; height:340px; border-radius:16px; border:1px solid var(--line); background:var(--bg2);
+        box-shadow:0 8px 28px rgba(0,0,0,.45); display:grid; place-items:center; overflow:hidden}
+    .tv-bezel{position:absolute; inset:0; pointer-events:none}
+    .screen{position:relative; width:86%; height:74%; border-radius:10px; overflow:hidden; box-shadow:0 0 0 1px rgba(255,255,255,.06) inset;}
+    .tv-note{position:absolute; bottom:10px; left:14px; font-size:12px; color:var(--muted)}
+    canvas#tv{position:absolute; inset:0}
+    section.block{margin-top:42px; padding-top:34px; border-top:1px solid var(--line)}
+    section.block h3{margin:0 0 8px; color:var(--accent)}
+    footer{margin-top:48px; padding:28px 16px; text-align:center; color:var(--muted); border-top:1px solid var(--line)}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>yellow-rca</h1>
+    <p>Open‑source RCA toolkit · tiny C/C++ lib · PAL vibes</p>
+  </header>
+
+  <div id="main" class="wrap" role="main">
+    <div class="hero">
+      <div class="text">
+        <h2>About</h2>
+        <p><strong>yellow‑rca</strong> is a tiny open‑source C/C++ library that can generate analog RCA (PAL) composite video and dump it into a WAV file. Minimal API, no frameworks.</p>
+        <p>Use it for quick test patterns, CRT nostalgia, or just for fun signal hacking.</p>
+
+        <div class="badges">
+          <a href="https://github.com/leafeni/yellow-rca" target="_blank"><img src="https://img.shields.io/github/stars/leafeni/yellow-rca?style=for-the-badge&logo=github&label=Stars" alt="GitHub stars"></a>
+          <a href="https://github.com/leafeni/yellow-rca/network/members" target="_blank"><img src="https://img.shields.io/github/forks/leafeni/yellow-rca?style=for-the-badge&logo=github&label=Forks" alt="GitHub forks"></a>
+          <a href="https://github.com/leafeni/yellow-rca/issues" target="_blank"><img src="https://img.shields.io/github/issues/leafeni/yellow-rca?style=for-the-badge&logo=github&label=Issues" alt="GitHub issues"></a>
+          <a href="https://github.com/leafeni/yellow-rca/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/leafeni/yellow-rca?style=for-the-badge&color=blue" alt="License"></a>
+        </div>
+
+        <!-- Version List Panel -->
+        <div class="panel">
+          <h3>Version & Links</h3>
+          <ul>
+            <li><strong>1.0</strong> — <a href="https://github.com/leafeni/yellow-rca/releases/tag/1.0" target="_blank">Release</a></li>
+            <li><a href="https://github.com/leafeni/yellow-rca" target="_blank">GitHub repo</a></li>
+            <li><a href="https://github.com/leafeni/yellow-rca/issues" target="_blank">Issues</a> · <a href="https://github.com/leafeni/yellow-rca/pulls" target="_blank">PRs</a></li>
+          </ul>
+          <p style='margin-top:12px;color:var(--muted)'>❤️ If you want to support development, check out <a href="https://github.com/sponsors/leafeni" target="_blank">GitHub Sponsors</a>. Every bit helps keep the project alive.</p>
+        </div><!-- /.panel -->
+
+        <!-- Cheat List panel -->
+        <div class="panel" style="margin-top:16px">
+          <h3>Cheat List</h3>
+          <ul>
+            <li><strong>Color bars</strong>: <code>yrca::make_color_bars_720x576()</code></li>
+            <li><strong>Encode to WAV</strong>: <code>PalEncoder::encode_frame_to_wav(frame, "out.wav", seconds, fps)</code></li>
+            <li><strong>RGB→YUV</strong>: BT.601 inside (<code>rgb_to_yuv()</code>)</li>
+            <li><strong>PAL alternation</strong>: invert V each line (burst ±135°)</li>
+            <li><strong>Timings</strong>: <code>P.line_us</code>, <code>P.sync_us</code>, <code>P.back_porch_us</code>, <code>P.active_us</code>, <code>P.total_lines</code></li>
+            <li><strong>Frequencies</strong>: <code>P.fs</code> (samplerate), <code>P.fsc</code> (subcarrier)</li>
+            <li><strong>Levels</strong>: <code>P.sync_level</code>, <code>P.black_level</code>, <code>P.white_level</code>, <code>P.burst_amplitude</code></li>
+          </ul>
+
+          <div style="margin-top:12px">
+            <button id="copy-demo" style="background:#0f1b2a;border:1px solid var(--line);color:var(--fg);padding:6px 10px;border-radius:8px;cursor:pointer">Copy minimal demo</button>
+          </div>
+          <pre id="demo-code" style="margin-top:10px;white-space:pre;overflow:auto;background:#0b1522;border:1px solid var(--line);border-radius:8px;padding:12px"><code>// minimal demo
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include "yellow_rca.h"
+using namespace yrca;
+
+int main(){
+  PalParams P; // default PAL params
+  PalEncoder enc(P);
+  FrameRGB bars = make_color_bars_720x576();
+  enc.encode_frame_to_wav(bars, "pal.wav", /*seconds*/ 2.0, /*fps*/ 25.0);
+  return 0;
+}
+</code></pre>
+        </div><!-- /.panel (Cheat List) -->
+      </div><!-- /.text -->
+
+      <!-- TV next to text -->
+      <div class="tv" aria-label="TV preview">
+        <svg class="tv-bezel" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <defs><linearGradient id="bez" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2636"/><stop offset="1" stop-color="#0c1623"/></linearGradient></defs>
+          <rect x="1" y="1" width="98" height="88" rx="9" ry="9" fill="url(#bez)" stroke="#1f2a3a" stroke-width="1.2"/>
+          <rect x="12" y="90" width="76" height="4" rx="2" fill="#0b1522" opacity=".8"/>
+          <circle cx="86" cy="10" r="2.2" fill="#58a6ff" opacity=".6"/>
+        </svg>
+        <div class="screen"><canvas id="tv" width="800" height="420"></canvas></div>
+        <div class="tv-note">PAL‑ish · rotating shapes · noise</div>
+      </div>
+
+    </div><!-- /.hero -->
+  </div><!-- /.wrap -->
+
+  <footer>
+    © 2025 yellow-rca — built by humans, for hardware · 
+    <a href="https://github.com/leafeni/yellow-rca" target="_blank">GitHub</a>
+  </footer>
+
+  <script>
+    // TV animation
+    const cvs = document.getElementById('tv');
+    const ctx = cvs.getContext('2d');
+    let DPR = Math.min(2, window.devicePixelRatio || 1);
+
+    function resizeTV(){
+      const rect = cvs.getBoundingClientRect();
+      const w = Math.floor(rect.width || 800);
+      const h = Math.floor(rect.height || 420);
+      cvs.width = Math.floor(w * DPR);
+      cvs.height = Math.floor(h * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+    resizeTV();
+    addEventListener('resize', resizeTV);
+
+    let a = 0, t = 0;
+    function draw(){
+      const rect = cvs.getBoundingClientRect();
+      const w = Math.floor(rect.width || 800);
+      const h = Math.floor(rect.height || 420);
+      ctx.clearRect(0, 0, w, h);
+      const bg = ctx.createLinearGradient(0,0,w,h);
+      bg.addColorStop(0,'rgba(24,60,140,0.22)');
+      bg.addColorStop(1,'rgba(10,30,80,0.12)');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0,0,w,h);
+
+      const jitter = Math.sin(t*0.9)*0.6;
+      const pad = 26, cx = w/2, cy = h/2+jitter, rw = w - pad*2, rh = h - pad*2;
+
+      ctx.save();
+      ctx.translate(cx,cy);
+      ctx.rotate(a);
+      ctx.fillStyle = '#0a46ff';
+      ctx.fillRect(-rw/2,-rh/2,rw,rh);
+      const r = Math.min(w,h)*0.10;
+      ctx.beginPath();
+      ctx.arc(-rw*0.18,-rh*0.18,r,0,Math.PI*2);
+      ctx.fillStyle = '#ff3b3b';
+      ctx.fill();
+      const sq = Math.min(w,h)*0.18;
+      ctx.fillStyle = '#1fe26b';
+      ctx.fillRect(rw*0.18 - sq/2, rh*0.18 - sq/2, sq, sq);
+      ctx.restore();
+
+      ctx.lineWidth = 1;
+      for(let y=0;y<h;y+=2){
+        const shade = 0.12 + 0.03 * Math.sin((y + t*2) * 0.08);
+        ctx.strokeStyle = `rgba(0,0,0,${shade})`;
+        const dx = Math.sin((y*0.08) + t*0.8) * 0.7;
+        ctx.beginPath();
+        ctx.moveTo(dx, y + 0.5);
+        ctx.lineTo(w + dx, y + 0.5);
+        ctx.stroke();
+      }
+
+      const pxCount = Math.floor(w*h*0.0007);
+      for(let i=0;i<pxCount;i++){
+        const nx = Math.random()*w, ny = Math.random()*h, aN = Math.random()*0.09;
+        ctx.fillStyle = `rgba(255,255,255,${aN})`;
+        ctx.fillRect(nx, ny, 1, 1);
+      }
+
+      const glare = ctx.createLinearGradient(0,0,0,40);
+      glare.addColorStop(0,'rgba(255,255,255,0.07)');
+      glare.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle = glare;
+      ctx.fillRect(0,0,w,40);
+
+      a += 0.012;
+      t += 0.8/60;
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // copy button for demo snippet
+    const btn = document.getElementById('copy-demo');
+    if(btn){
+      btn.addEventListener('click', () => {
+        const txt = document.getElementById('demo-code').innerText;
+        navigator.clipboard.writeText(txt).then(()=>{ btn.textContent = 'Copied ✔'; setTimeout(()=>btn.textContent='Copy minimal demo', 1400); });
+      });
+    }
+  </script>
+</body>
+</html>
